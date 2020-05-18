@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <title>ToyBox</title>
+    <meta name="description" content="ToyBox">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Fredoka+One&display=swap"
+        rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="https://kit.fontawesome.com/3510c8fda1.js" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="container-full bg-white">
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand fredoka-font logo text-info" href="index.html">ToyBox<span
+                    class="logo-small d-none d-sm-inline-block">.com</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-secondary small-font" href="index.html">HOME</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-secondary small-font" href="index.html"
+                            id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            CATEGORIES
+                        </a>
+                        <div class="dropdown-menu small-font" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="index.html">All Products</a>
+                            <a class="dropdown-item" href="index.html">Teddy Bears</a>
+                            <a class="dropdown-item" href="index.html">Farm Animals</a>
+                            <a class="dropdown-item" href="index.html">Cats & Dogs</a>
+                            <a class="dropdown-item" href="index.html">Wild Animals</a>
+                            <a class="dropdown-item" href="index.html">Water Creatures</a>
+                            <a class="dropdown-item" href="index.html">Other</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary small-font" href="add-product.html">ADD PRODUCT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary small-font" href="#">LOGOUT</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- content -->
+    <div class="container content-container">
+        <h2 class="text-dark font-weight-light border-bottom">Order Angry Shiba Dog</h2>
+        <div class="order-container">
+            <h5 class="mb-3">Please enter your shipping details accurately</h5>
+
+            <!-- form -->
+            <form>
+                <div class="row">
+                    <!-- quantity input -->
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="small-font form-head" for="quantityInput">QUANTITY</label>
+                            <input class="form-control small-font" type="number" value="1" id="quantityInput">
+                        </div>
+                    </div>
+                    <!-- state input -->
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="stateInput" class="small-font form-head">STATE</label>
+                            <select id="stateInput" class="form-control small-font">
+                                <option selected>Select state</option>
+                                <option>ACT</option>
+                                <option>NSW</option>
+                                <option>NT</option>
+                                <option>QLD</option>
+                                <option>SA</option>
+                                <option>TAS</option>
+                                <option>VIC</option>
+                                <option>WA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- city suburb input -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="small-font form-head" for="citySuburbInput">CITY / SUBURB</label>
+                            <input type="text" class="form-control small-font" id="citySuburbInput"
+                                placeholder="Enter city or suburb">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- postcode input -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="small-font form-head" for="postcodeInput">POSTCODE</label>
+                            <input type="number" class="form-control small-font" id="postcodeInput"
+                                placeholder="Enter postcode">
+                        </div>
+                    </div>
+                    <!-- address input -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="small-font form-head" for="addressInput">ADDRESS</label>
+                            <input type="text" class="form-control small-font" id="addressInput"
+                                placeholder="Enter address">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- additional information input -->
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="small-font form-head" for="descInput">ADDITIONAL INFORMATION</label>
+                            <textarea type="text" class="form-control small-font" id="descInput">Enter additional information</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- submission buttons -->
+                <button type="button" class="btn btn-info font-weight-bold order-btn form-control mt-3" data-toggle="modal"
+                    data-target="#orderModal">
+                    Confirm Order
+                </button>
+
+                <!-- modal -->
+                <div class="modal fade" id="orderModal" tabindex="-1" role="dialog"
+                    aria-labelledby="orderModalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="orderModalLongTitle">Order Confirmation</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you wish to order 
+                                <span class="text-info font-weight-bold">1</span> of 
+                                <span class="text-info font-weight-bold">Angry Shiba Dog</span> to 
+                                <span class="text-info font-weight-bold">42 Wallaby Way, Sydney</span> for
+                                <span class="text-info font-weight-bold">$18</span>? 
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <a href="index.html" type="button" class="btn btn-info">Yes, Order</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- footer -->
+    <div class="jumbotron text-center text-dark bg-light m-0 mt-5">
+        <small>© Copyright 2020 ToyBox.com Pty Ltd (ABN 22 145 723 191). All Rights Reserved.<small>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+body {
+    overflow-x: hidden;
+}
+
+.navbar {
+    box-shadow: 0 4px 4px -4px rgba(0,0,0,.2);
+}
+
+.fredoka-font {
+    font-family: 'Fredoka One', cursive!important;
+}
+
+.logo {
+    font-size: 50px;
+}
+
+.logo-small {
+    font-size: 20px;
+}
+
+.content-container {
+    margin-top: 128px; 
+}
+
+h1 {
+    font-size: 40px;
+}
+
+.form-head {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.small-font {
+    font-size: 13px!important;
+}
+
+h5 {
+    font-size: 15px!important;
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label::before,
+.custom-radio .custom-control-input:checked~.custom-control-label::after {
+    background-color: #17a2b8;
+    border-radius: 50%;
+}
+
+.page-item:first-child .page-link {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.review-head {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.order-container {
+    padding: 16px 16px;
+}
+
+.order-btn {
+    font-size: 20px;
+}
