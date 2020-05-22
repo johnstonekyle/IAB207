@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- content -->
+<div class="container content-container">
+    <h2 class="text-dark font-weight-light border-bottom">Add/Update Product</h2>
+
+    <!-- form -->
+    <form class="mt-3">
+        <div class="row">
+            <!-- stock input -->
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="small-font form-head" for="stockInput">STOCK /p MONTH</label>
+                    <input class="form-control small-font" type="number" placeholder="Enter stock" id="stockInput">
+                </div>
+            </div>
+            <!-- category input -->
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="categoryInput" class="small-font form-head">CATEGORY</label>
+                    <select id="categoryInput" class="form-control small-font">
+                        <option selected>Select category</option>
+                        <option>Teddy Bears</option>
+                        <option>Farm Animals</option>
+                        <option>Cats & Dogs</option>
+                        <option>Wild Animals</option>
+                        <option>Water Creatures</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+            <!-- price input -->
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="small-font form-head" for="priceInput">PRICE</label>
+                    <input type="number" class="form-control small-font" id="priceInput" placeholder="Enter price">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- name input -->
+            <div class="col">
+                <div class="form-group">
+                    <label class="small-font form-head" for="nameInput">PRODUCT NAME</label>
+                    <input type="text" class="form-control small-font" id="nameInput" placeholder="Enter product name">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- description input -->
+            <div class="col">
+                <div class="form-group">
+                    <label class="small-font form-head" for="descInput">DESCRIPTION</label>
+                    <textarea type="text" class="form-control small-font" id="descInput">Enter description</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- primary image input -->
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="small-font form-head" for="imgOneInput">PRIMARY IMAGE</label>
+                    <input type="file" class="form-control-file border small-font" id="imgOneInput">
+                </div>
+            </div>
+            <!-- second image input -->
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="small-font form-head" for="imgTwoInput">SECOND IMAGE</label>
+                    <input type="file" class="form-control-file border small-font" id="imgTwoInput">
+                </div>
+            </div>
+            <!-- third image input -->
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="small-font form-head" for="imgThreeInput">THIRD IMAGE</label>
+                    <input type="file" class="form-control-file border small-font" id="imgThreeInput">
+                </div>
+            </div>
+        </div>
+
+        <!-- submission buttons -->
+        <button type="button" class="btn btn-info font-weight-bold order-btn form-control mt-3" data-toggle="modal"
+            data-target="#productModal">
+            Confirm
+        </button>
+
+        <!-- modal -->
+        <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalLongTitle">Product Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you wish to add/update
+                        <span class="text-info font-weight-bold">Angry Shiba Dog</span> with
+                        <span class="text-info font-weight-bold">12</span> stock p/ month at
+                        <span class="text-info font-weight-bold">$18</span>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a href="{{ url_for('main.index') }}" type="button" class="btn btn-info">Yes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

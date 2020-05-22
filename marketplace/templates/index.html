@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- content -->
+<div class="container">
+
+  <div class="row content-container">
+
+    <!-- filter form side panel --FOR LARGE SCREENS-- -->
+    <div class="col-md-3 d-none d-md-block">
+      <form action="" class="text-dark small-font">
+
+        <input type="search" class="form-control rounded-pill small-font" placeholder="Search">
+
+        <!-- categories filter -->
+        <div class="form-head pb-1 mb-3 pt-4 border-bottom">CATEGORY</div>
+        <a class="d-block btn text-left small-font" href="#">All Products</a>
+        <a class="d-block btn text-left small-font text-muted" href="#">Teddy Bears</a>
+        <a class="d-block btn text-left small-font text-muted" href="#">Farm Animals</a>
+        <a class="d-block btn text-left small-font text-muted" href="#">Cats & Dogs</a>
+        <a class="d-block btn text-left small-font text-muted" href="#">Wild Animals</a>
+        <a class="d-block btn text-left small-font text-muted" href="#">Water Creatures</a>
+        <a class="d-block btn text-left small-font text-muted" href="#">Other</a>
+
+        <!-- rating filter -->
+        <div class="form-head pb-1 mb-3 pt-5 border-bottom">RATING</div>
+        <div class="mt-2 custom-control custom-radio">
+          <input type="radio" class="custom-control-input" name="rating" id="zeroStars" checked>
+          <label for="zeroStars" class="text-muted custom-control-label">
+            <i class="far fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i> <i
+              class="far fa-star"></i> <i class="far fa-star"></i> +
+          </label>
+        </div>
+        <div class="mt-2 custom-control custom-radio">
+          <input type="radio" class="custom-control-input" name="rating" id="oneStars">
+          <label for="oneStars" class="text-muted custom-control-label">
+            <i class="fas fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i> <i
+              class="far fa-star"></i> <i class="far fa-star"></i> +
+          </label>
+        </div>
+        <div class="mt-2 custom-control custom-radio">
+          <input type="radio" class="custom-control-input" name="rating" id="twoStars">
+          <label for="twoStars" class="text-muted custom-control-label">
+            <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="far fa-star"></i> <i
+              class="far fa-star"></i> <i class="far fa-star"></i> +
+          </label>
+        </div>
+        <div class="mt-2 custom-control custom-radio">
+          <input type="radio" class="custom-control-input" name="rating" id="threeStars">
+          <label for="threeStars" class="text-muted custom-control-label">
+            <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+              class="far fa-star"></i> <i class="far fa-star"></i> +
+          </label>
+        </div>
+        <div class="mt-2 custom-control custom-radio">
+          <input type="radio" class="custom-control-input" name="rating" id="fourStars">
+          <label for="fourStars" class="text-muted custom-control-label">
+            <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+              class="fas fa-star"></i> <i class="far fa-star"></i> +
+          </label>
+        </div>
+
+        <!-- rating filter -->
+        <div class="form-head pb-1 mb-3 pt-5 border-bottom">PRICE</div>
+        <input type="range" class="form-control" min="0" max="200" value="200">
+
+        <!-- submission buttons -->
+        <input type="submit" class="btn btn-info d-block rounded-pill w-100 mt-4 small-font" value="UPDATE">
+        <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 mb-5 small-font"
+          value="RESET FILTER">
+
+      </form>
+
+    </div>
+
+    <!-- filter above cards --FOR SMALL SCREENS-- -->
+    <div class="d-md-none mb-5 w-100">
+      <button class="btn small-font border-bottom" type="button" data-toggle="collapse" data-target="#collapseExample"
+        aria-expanded="false" aria-controls="collapseExample">
+        <i class="fas fa-search"></i> FILTER SEARCH
+      </button>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <form>
+            <!-- category filter -->
+            <div class="form-group">
+              <label for="categoryInputSmall" class="small-font form-head">CATEGORY</label>
+              <select id="categoryInputSmall" class="form-control small-font">
+                <option selected>All Products</option>
+                <option>Teddy Bears</option>
+                <option>Farm Animals</option>
+                <option>Cats & Dogs</option>
+                <option>Wild Animals</option>
+                <option>Water Creatures</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <!-- rating filter -->
+            <div class="form-group">
+              <label for="ratingInputSmall" class="small-font form-head">RATING</label>
+              <select id="ratingInputSmall" class="form-control small-font">
+                <option selected>0 Stars +</option>
+                <option>1 Star +</option>
+                <option>2 Stars +</option>
+                <option>3 Stars +</option>
+                <option>4 Stars +</option>
+              </select>
+            </div>
+            <!-- price filter -->
+            <div class="form-group">
+              <label for="priceInputSmall" class="small-font form-head">PRICE</label>
+              <input type="range" id="priceInputSmall" class="form-control" min="0" max="200" value="200">
+            </div>
+            <!-- submission buttons -->
+            <input type="submit" class="btn btn-info d-block rounded-pill w-100 mt-4 small-font" value="UPDATE">
+            <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 small-font"
+              value="RESET FILTER">
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- product cards -->
+    <div class="col-md-9">
+
+      <!-- heading for cards -->
+      <div class="row border-bottom mb-4">
+        <div class="col-8">
+          <h2 class="text-dark font-weight-light">All Products</h2>
+        </div>
+        <div class="col-4 text-right">
+          <div class="dropdown d-inline-block">
+            <button class="btn dropdown-toggle font-weight-light pb-0" type="button" id="dropdownSort"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Latest
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownSort">
+              <a class="dropdown-item font-weight-light" href="#">Latest</a>
+              <a class="dropdown-item font-weight-light" href="#">A-Z</a>
+              <a class="dropdown-item font-weight-light" href="#">Price - Low to High</a>
+              <a class="dropdown-item font-weight-light" href="#">Price - High to Low</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <small class="text-muted ">Showing 1-6 of 24 results</small>
+
+      <!-- first row of cards -->
+
+      <div class="card-deck ">
+        <!-- shiba dog card -->
+        <a href="{{ url_for('product.view', id=1) }}" class="card">
+          <img class="card-img-top" src="../static/img/shiba.jpg">
+          <div class="card-body">
+
+            <div class="row">
+              <h5 class="col-lg-8 card-title text-dark">Angry Shiba Dog</h5>
+              <h5 class="col-lg-4 card-title text-info">$18</h5>
+            </div>
+
+            <div class="row">
+              <p class="col-lg-8 card-text text-success"><small>Available</small></p>
+              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 4.3</small></p>
+            </div>
+
+          </div>
+        </a>
+        <!-- polar bear card -->
+        <a href="{{ url_for('product.view', id=1) }}" class="card">
+          <img class="card-img-top" src="../static/img/polarbear.jpg">
+          <div class="card-body">
+
+            <div class="row">
+              <h5 class="col-lg-8 card-title text-dark">Round Polar Bear</h5>
+              <h5 class="col-lg-4 card-title text-info">$25</h5>
+            </div>
+
+            <div class="row">
+              <p class="col-lg-8 card-text text-success"><small>Available</small></p>
+              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 3.7</small></p>
+            </div>
+
+          </div>
+        </a>
+        <!-- cat card -->
+        <a href="{{ url_for('product.view', id=1) }}" class="card">
+          <img class="card-img-top" src="../static/img/cat.jpg">
+          <div class="card-body">
+
+            <div class="row">
+              <h5 class="col-lg-8 card-title text-dark">Long Cat</h5>
+              <h5 class="col-lg-4 card-title text-info">$60</h5>
+            </div>
+
+            <div class="row">
+              <p class="col-lg-8 card-text text-danger"><small>Not Available</small></p>
+              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 3.8</small></p>
+            </div>
+
+          </div>
+        </a>
+      </div>
+
+      <!-- a second row of cards -->
+
+      <div class="card-deck mt-5">
+        <!-- bread card -->
+        <a href="{{ url_for('product.view', id=1) }}" class="card">
+          <img class="card-img-top" src="../static/img/bread.jpg">
+          <div class="card-body">
+
+            <div class="row">
+              <h5 class="col-lg-8 card-title text-dark">Bread Pillow</h5>
+              <h5 class="col-lg-4 card-title text-info">$24</h5>
+            </div>
+
+            <div class="row">
+              <p class="col-lg-8 card-text text-success"><small>Available</small></p>
+              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 4.8</small></p>
+            </div>
+
+          </div>
+        </a>
+        <!-- sheep card -->
+        <a href="{{ url_for('product.view', id=1) }}" class="card">
+          <img class="card-img-top" src="../static/img/sheep.jpg">
+          <div class="card-body">
+
+            <div class="row">
+              <h5 class="col-lg-8 card-title text-dark">Funny Sheep</h5>
+              <h5 class="col-lg-4 card-title text-info">$30</h5>
+            </div>
+
+            <div class="row">
+              <p class="col-lg-8 card-text text-success"><small>Available</small></p>
+              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 3.2</small></p>
+            </div>
+
+          </div>
+        </a>
+        <!-- llama card -->
+        <a href="{{ url_for('product.view', id=1) }}" class="card">
+          <img class="card-img-top" src="../static/img/llama.jpg">
+          <div class="card-body">
+
+            <div class="row">
+              <h5 class="col-lg-8 card-title text-dark">Rainbow Llama</h5>
+              <h5 class="col-lg-4 card-title text-info">$40</h5>
+            </div>
+
+            <div class="row">
+              <p class="col-lg-8 card-text text-success"><small>Available</small></p>
+              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 4.1</small></p>
+            </div>
+
+          </div>
+        </a>
+      </div>
+
+      <!-- pagination -->
+      <nav class="mt-5">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link text-info" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link bg-info text-light" href="#">1</a></li>
+          <li class="page-item"><a class="page-link text-info" href="#">2</a></li>
+          <li class="page-item"><a class="page-link text-info" href="#">3</a></li>
+          <li class="page-item"><a class="page-link text-info" href="#">4</a></li>
+          <li class="page-item">
+            <a class="page-link text-info" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
