@@ -28,7 +28,7 @@ class Comment(db.Model):
     __tablename__='comments'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(500))
-    rating = db.Column(db.Integer, nullable=False)
+    rating = db.Column(db.Float, nullable=False)
     created = db.Column(db.DateTime, default=datetime.now(), nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
