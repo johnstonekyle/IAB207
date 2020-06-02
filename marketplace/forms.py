@@ -25,8 +25,9 @@ class RegisterForm(FlaskForm):
     confirm = PasswordField("Confirm Password")
 
     #add buyer/seller - check if it is a buyer or seller hint : Use RequiredIf field
-    # ----- NB: RequiredIf has not been implemented here yet. -----
+    # ----- Bank details RequiredIf seller is True (need to update database first) -----
     seller = BooleanField("Do you wish to sell products?")
+
     
     #submit button
     submit = SubmitField("Register")
