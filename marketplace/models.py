@@ -27,6 +27,7 @@ class Product(db.Model):
 class Comment(db.Model):
     __tablename__='comments'
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.String(500))
     rating = db.Column(db.Float, nullable=False)
     created = db.Column(db.DateTime, default=datetime.now(), nullable=False)
@@ -59,6 +60,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(30), index=True, unique=True, nullable=False)
     email = db.Column(db.String(100), index=True, unique=True, nullable=False)
     phone = db.Column(db.String(20), nullable=False)
+    bank_account = db.Column(db.Integer)
     seller = db.Column(db.Boolean, nullable=False) #determines whether the user is a seller or buyer
     password_hash = db.Column(db.String(255), nullable=False)
 
