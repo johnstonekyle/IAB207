@@ -19,6 +19,10 @@ def create_app():
     db.init_app(app)
 
     bootstrap = Bootstrap(app)
+
+    #the folder to store images
+    UPLOAD_FOLDER = '/static/image'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     
     #initialize the login manager
     login_manager = LoginManager()
