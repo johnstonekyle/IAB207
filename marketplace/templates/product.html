@@ -86,14 +86,17 @@
     <h2 class="text-dark font-weight-light border-bottom">Customer Reviews</h2>
 
     <!-- post a review form -->
-    <form>
-        <div class="small-font form-head" for="reviewInput">POST A REVIEW</div>
+    <form method="POST">
+        {{ form.csrf_token }}
+        <!-- <div class="small-font form-head" for="reviewInput">POST A REVIEW</div> -->
+        {{ form.text.label(class_="small-font form-head") }}
 
         <div class="row">
             <!-- review description input -->
             <div class="col mt-2">
                 <div class="form-group m-0">
-                    <textarea type="text" class="form-control small-font" id="reviewInput">Enter review</textarea>
+                    <!-- <textarea type="text" class="form-control small-font" id="reviewInput">Enter review</textarea> -->
+                    {{ form.text(class_="form-control small-font", placeholder="Enter review") }}
                 </div>
             </div>
         </div>
@@ -101,25 +104,42 @@
         <div class="row">
             <!-- rating input -->
             <div class="col-sm-3 mt-2">
-                <select id="ratingInput" class="form-control small-font">
+                <!-- <select id="ratingInput" class="form-control small-font">
                     <option selected>Select rating</option>
                     <option>1 Star</option>
                     <option>2 Star</option>
                     <option>3 Star</option>
                     <option>4 Star</option>
                     <option>5 Star</option>
-                </select>
+                </select> -->
+                {{ form.rating(class_="form-control small-font") }}
             </div>
             <!-- title input -->
             <div class="col-sm-6 mt-2">
-                <input class="form-control small-font" type="text" placeholder="Enter title">
+                <!-- <input class="form-control small-font" type="text" placeholder="Enter title"> -->
+                {{ form.title(class_="form-control small-font", placeholder="Enter title") }}
             </div>
             <!-- submission button -->
             <div class="col-sm-3 mt-2">
-                <input class="btn btn-outline-info small-font form-control" type="submit" value="Post">
+                <!-- <input class="btn btn-outline-info small-font form-control" type="submit" value="Post"> -->
+                {{ form.submit(class_="btn btn-outline-info form-control small-font") }}
             </div>
         </div>
     </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="container">
+                <div class="row mt-3 mb-3">
+                    <div class="col md-12">
+                        {% for message in messages %}
+                        <div class="alert alert-danger">{{message}}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
 
     {% for comment in comments %}
 
@@ -138,7 +158,7 @@
                         {% for i in range(comment[0].rating|int) %}
                             <i class="fas fa-star"></i>
                         {% endfor %}
-                        
+                        {{ comment[0].rating|int }} stars
                     </span>
                 </span>
             </div>

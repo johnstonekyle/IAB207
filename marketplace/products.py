@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Product, User, Comment
-from .forms import AddProductForm
+from .forms import AddProductForm, ReviewForm
 from werkzeug.utils import secure_filename
 import os
 from . import db
@@ -9,8 +9,13 @@ from . import db
 bp = Blueprint('product', __name__, url_prefix='/product')
 
 
-@bp.route('/<id>')
+@bp.route('/<id>', methods=['GET', 'POST'])
 def view(id):
+
+    #######################################
+    ### get data to display on the page ###
+    #######################################
+
     product = Product.query.filter_by(id=id).first()
     if (not product): #if product doesnt exist then 404
         return render_template('404.html')
@@ -47,7 +52,40 @@ def view(id):
     #get comments with user joined
     comments = db.session.query(Comment, User).filter_by(product_id=id).outerjoin(User, Comment.user_id == User.id).all()
 
-    return render_template('product.html', product=product, roundedPrice = roundedPrice, rating=rating, reviewCount=i, seller=seller, sellerRating=sellerRating, sellerReviewCount=j, comments=comments)
+    ##########################
+    ### handle review form ###
+    ##########################
+
+    #get review form
+    form = ReviewForm()
+
+    if(form.validate_on_submit()):
+        #get data from form
+        f_text = form.text.data
+        f_rating = form.rating.data
+        f_title = form.title.data
+
+        #create new comment object
+        new_comment = Comment (
+            text = f_text,
+            rating = f_rating,
+            title = f_title,
+            user_id = current_user.id,
+            product_id = id
+        )
+
+        #save new comment to database
+        db.session.add(new_comment)
+        db.session.commit()
+
+        #redirect back to the page
+        return redirect(url_for('product.view', id=id))
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(u"%s: %s" % (getattr(form, field).label.text.title(), error), 'error')
+
+    return render_template('product.html', product=product, roundedPrice = roundedPrice, rating=rating, reviewCount=i, seller=seller, sellerRating=sellerRating, sellerReviewCount=j, comments=comments, form=form)
 
 def check_upload_file(fp, filename):
     #filename = fp.filename

@@ -53,3 +53,15 @@ class AddProductForm(FlaskForm):
     image_three = FileField("THIRD IMAGE", validators=[FileAllowed(ALLOWED_FILE, message="Only support jpg, JPG, png, PNG, bmp")])
 
     submit = SubmitField("Confirm")
+
+#this is the post review form
+class ReviewForm(FlaskForm):
+    #review message, not required, can be empty
+    text = TextAreaField("REVIEW", validators=[Length(min=0, max=500, message="Max length of 500 characters")])
+
+    #rating options for selector, in tuples
+    rating = SelectField("RATING", choices=[('1','1 Star'), ('2','2 Stars'), ('3','3 Stars'), ('4','4 Stars'), ('5','5 Stars')])
+
+    title = StringField("TITLE", validators=[InputRequired(), Length(min=1, max=100, message="Max length of 100 characters")])
+
+    submit = SubmitField("Post")
