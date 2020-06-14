@@ -147,116 +147,34 @@
       </div>
       <small class="text-muted ">Showing 1-6 of 24 results</small>
 
-      <!-- first row of cards -->
+      <!-- rows of products -->
 
-      <div class="card-deck ">
-        <!-- shiba dog card -->
-        <a href="{{ url_for('product.view', id=1) }}" class="card">
-          <img class="card-img-top" src="../static/img/shiba.jpg">
-          <div class="card-body">
+      <div class="card-deck">
+        {% for product in products %}
+          <!-- individual product card -->
+          <div class="col-sm-4 mt-3 mb-3">
+            <a href="{{ url_for('product.view', id=product.id) }}" class="card product-card">
+              <img class="card-img-top product-image" src="..{{ product.image_one }}">
+              <div class="card-body">
 
-            <div class="row">
-              <h5 class="col-lg-8 card-title text-dark">Angry Shiba Dog</h5>
-              <h5 class="col-lg-4 card-title text-info">$18</h5>
-            </div>
+                <div class="row">
+                  <h5 class="col-lg-8 card-title text-dark">{{ product.name }}</h5>
+                  <h5 style ="text-align:right;" class="col-lg-4 card-title text-info">${{ product.price }}</h5>
+                </div>
 
-            <div class="row">
-              <p class="col-lg-8 card-text text-success"><small>Available</small></p>
-              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 4.3</small></p>
-            </div>
-
+                <div class="row">
+                  {% if product.current_stock > 0 %}
+                  <p class="col-lg-8 card-text text-success"><small>Available</small></p>
+                  {% else %}
+                  <p style ="text-align:right;" class="col-lg-8 card-text text-danger"><small>Not Available</small></p>
+                  {% endif %}
+                  
+                  <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> {{ product.rating }}</small></p>
+                </div>
+              </div>
+            </a>
           </div>
-        </a>
-        <!-- polar bear card -->
-        <a href="{{ url_for('product.view', id=1) }}" class="card">
-          <img class="card-img-top" src="../static/img/polarbear.jpg">
-          <div class="card-body">
-
-            <div class="row">
-              <h5 class="col-lg-8 card-title text-dark">Round Polar Bear</h5>
-              <h5 class="col-lg-4 card-title text-info">$25</h5>
-            </div>
-
-            <div class="row">
-              <p class="col-lg-8 card-text text-success"><small>Available</small></p>
-              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 3.7</small></p>
-            </div>
-
-          </div>
-        </a>
-        <!-- cat card -->
-        <a href="{{ url_for('product.view', id=1) }}" class="card">
-          <img class="card-img-top" src="../static/img/cat.jpg">
-          <div class="card-body">
-
-            <div class="row">
-              <h5 class="col-lg-8 card-title text-dark">Long Cat</h5>
-              <h5 class="col-lg-4 card-title text-info">$60</h5>
-            </div>
-
-            <div class="row">
-              <p class="col-lg-8 card-text text-danger"><small>Not Available</small></p>
-              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 3.8</small></p>
-            </div>
-
-          </div>
-        </a>
-      </div>
-
-      <!-- a second row of cards -->
-
-      <div class="card-deck mt-5">
-        <!-- bread card -->
-        <a href="{{ url_for('product.view', id=1) }}" class="card">
-          <img class="card-img-top" src="../static/img/bread.jpg">
-          <div class="card-body">
-
-            <div class="row">
-              <h5 class="col-lg-8 card-title text-dark">Bread Pillow</h5>
-              <h5 class="col-lg-4 card-title text-info">$24</h5>
-            </div>
-
-            <div class="row">
-              <p class="col-lg-8 card-text text-success"><small>Available</small></p>
-              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 4.8</small></p>
-            </div>
-
-          </div>
-        </a>
-        <!-- sheep card -->
-        <a href="{{ url_for('product.view', id=1) }}" class="card">
-          <img class="card-img-top" src="../static/img/sheep.jpg">
-          <div class="card-body">
-
-            <div class="row">
-              <h5 class="col-lg-8 card-title text-dark">Funny Sheep</h5>
-              <h5 class="col-lg-4 card-title text-info">$30</h5>
-            </div>
-
-            <div class="row">
-              <p class="col-lg-8 card-text text-success"><small>Available</small></p>
-              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 3.2</small></p>
-            </div>
-
-          </div>
-        </a>
-        <!-- llama card -->
-        <a href="{{ url_for('product.view', id=1) }}" class="card">
-          <img class="card-img-top" src="../static/img/llama.jpg">
-          <div class="card-body">
-
-            <div class="row">
-              <h5 class="col-lg-8 card-title text-dark">Rainbow Llama</h5>
-              <h5 class="col-lg-4 card-title text-info">$40</h5>
-            </div>
-
-            <div class="row">
-              <p class="col-lg-8 card-text text-success"><small>Available</small></p>
-              <p class="col-lg-4 card-text text-muted"><small><i class="fas fa-star-half-alt"></i> 4.1</small></p>
-            </div>
-
-          </div>
-        </a>
+        {% endfor %}
       </div>
 
       <!-- pagination -->
