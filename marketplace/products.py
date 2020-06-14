@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
-from .models import Product, User
+from .models import Product, User, Comment
 from .forms import AddProductForm
 from werkzeug.utils import secure_filename
 import os
@@ -20,19 +20,34 @@ def view(id):
     
     #get review rating average
     rating = 0
-    index = 0
+    i = 0
     for comment in product.comments:
         rating += comment.rating
-        index += 1
-    if index > 0:
-        rating = round(rating/index, 2)
+        i += 1
+    if i > 0:
+        rating = round(rating/i, 2)
     else:
         rating = 'N/A'
 
     #get seller info
     seller = User.query.filter_by(id=product.seller_id).first()
 
-    return render_template('product.html', product=product, roundedPrice = roundedPrice, rating=rating, reviewCount=index, seller=seller)
+    #get seller avg rating
+    sellerRating = 0
+    j = 0
+    for prod in seller.products:
+        for com in prod.comments:
+            sellerRating += com.rating
+            j += 1
+    if j > 0:
+        sellerRating = round(sellerRating/j, 2)
+    else:
+        sellerRating = 'N/A'
+
+    #get comments with user joined
+    comments = db.session.query(Comment, User).filter_by(product_id=id).outerjoin(User, Comment.user_id == User.id).all()
+
+    return render_template('product.html', product=product, roundedPrice = roundedPrice, rating=rating, reviewCount=i, seller=seller, sellerRating=sellerRating, sellerReviewCount=j, comments=comments)
 
 def check_upload_file(fp, filename):
     #filename = fp.filename
@@ -42,7 +57,7 @@ def check_upload_file(fp, filename):
     #combined base path with image folder and file name
     upload_path = os.path.join(BASE_PATH, 'static/img/products', secure_filename(filename))
     #the path that will be stored and can be used in HTML
-    dp_upload_path = '/static/img/products'+ secure_filename(filename)
+    dp_upload_path = '/static/img/products/'+ secure_filename(filename)
 
     fp.save(upload_path)
     return dp_upload_path
