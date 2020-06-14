@@ -1,5 +1,5 @@
 #import flask - from the package import class
-from flask import Flask 
+from flask import Flask, render_template 
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -12,6 +12,7 @@ def create_app():
   
     app=Flask(__name__)  # this is the name of the module/package that is calling this app
     app.debug=True
+    app.register_error_handler(404, page_not_found) #handles exceptions where the page does not exist
     app.secret_key='utroutoru'
     #set the app configuration data 
     app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///marketplace.sqlite'
@@ -54,6 +55,10 @@ def create_app():
     app.register_blueprint(auth.bp)
     
     return app
+
+# this function renders an error 404 page if the page does not exist within the directory. 
+def page_not_found(e):
+  return render_template('404.html'), 404
 
 
 
