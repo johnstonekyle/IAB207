@@ -42,12 +42,12 @@
                         </a>
                         <div class="dropdown-menu small-font" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ url_for('main.index') }}">All Products</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Teddy Bears</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Farm Animals</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Cats & Dogs</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Wild Animals</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Water Creatures</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Other</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Teddy Bears') }}">Teddy Bears</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Farm Animals') }}">Farm Animals</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Cats & Dogs') }}">Cats & Dogs</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Wild Animals') }}">Wild Animals</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Water Creatures') }}">Water Creatures</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Other') }}">Other</a>
                         </div>
                     </li>
                     <li class="nav-item">
