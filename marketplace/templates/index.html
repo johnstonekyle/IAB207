@@ -106,7 +106,7 @@
           </label>
         </div>
 
-        <!-- rating filter -->
+        <!-- price filter -->
         <div class="form-head pb-1 mb-3 pt-5 border-bottom">MAX PRICE</div>
         <output>$0</output>
         <input class="form custom-slider" name="pricerange" type="range" step="5" min="0" max="{{actual_max_price}}" value="{{max_price}}">  
@@ -116,10 +116,7 @@
         <input type="submit" class="btn btn-info d-block rounded-pill w-100 mt-4 small-font" value="APPLY">
         <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 small-font"
           value="RESET">
-        <a href="{{ url_for('main.index') }}">
-          <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 mb-5 small-font" value="REMOVE ALL">
-        </a>
-
+        <a class="btn btn-outline-info d-block rounded-pill w-100 mt-3 mb-5 small-font" href="{{ url_for('main.index') }}">REMOVE ALL</a>
       </form>
 
     </div>
@@ -132,30 +129,58 @@
       </button>
       <div class="collapse" id="collapseExample">
         <div class="card card-body">
-          <form action="" oninput="pricerangevalue.value = pricerange.valueAsNumber">
+          <form action="/filter" method= "POST" oninput="pricerangevalue.value = pricerange.valueAsNumber">
+
+            <!-- search filter -->
+            <div class="form-head pb-1 mb-3 pt-4 border-bottom">PRODUCT AND DESCRIPTION</div>
+            {% if user_search %}
+            <input name="search" type="search" value="{{ user_search }}" class="form-control rounded-pill small-font" placeholder="{{ user_search }}">
+            {% else %}
+              <input name="search" type="search" class="form-control rounded-pill small-font" placeholder="Search">
+            {% endif %} <br>
+            
+            <div class="form-group">
+              <label for="categoryInputSmall" class="small-font form-head">ORGANISE BY</label>
+              <select class="form-control small-font" id="order" name="order">
+                <!-- current category -->
+                <option value="{{ order }}" selected>{{ order }}</option> 
+                <!-- all categories -->
+                <option value="Latest">Latest</option>
+                <option value="Least Expensive">Least Expensive</option>
+                <option value="Most Expensive">Most Expensive</option>
+                <option value="Alphabetical">Alphabetical</option>
+              </select>
+            </div>
+
             <!-- category filter -->
             <div class="form-group">
               <label for="categoryInputSmall" class="small-font form-head">CATEGORY</label>
-              <select id="categoryInputSmall" class="form-control small-font">
-                <option selected>All Products</option>
-                <option>Teddy Bears</option>
-                <option>Farm Animals</option>
-                <option>Cats & Dogs</option>
-                <option>Wild Animals</option>
-                <option>Water Creatures</option>
-                <option>Other</option>
+              <select class="form-control small-font" id="category" name="category">
+                <!-- current category -->
+                <option value="{{ category }}" selected>{{ category }}</option> 
+                <!-- all categories -->
+                <option value="All Products">All Products</option>
+                <option value="Teddy Bears">Teddy Bears</option>
+                <option value="Farm Animals">Farm Animals</option>
+                <option value="Cats & Dogs">Cats & Dogs</option>
+                <option value="Wild Animals">Wild Animals</option>
+                <option value="Water Creatures">Water Creatures</option>
+                <option value="Other">Other</option>
               </select>
             </div>
             <!-- rating filter -->
             <div class="form-group">
               <label for="ratingInputSmall" class="small-font form-head">RATING</label>
-              <select id="ratingInputSmall" class="form-control small-font">
-                <option selected>0 Stars +</option>
-                <option>1 Star +</option>
-                <option>2 Stars +</option>
-                <option>3 Stars +</option>
-                <option>4 Stars +</option>
-              </select>
+              <select class="form-control small-font" id="rating" name="rating">
+                  <!-- current rating -->
+                  <option value="{{ user_rating }}" selected>{{ user_rating }} Stars +</option> 
+                  <!-- all ratings -->
+                  <option value="0">0 Stars +</option>
+                  <option value="1">1 Star +</option>
+                  <option value="2">2 Stars +</option>
+                  <option value="3">3 Stars +</option>
+                  <option value="4">4 Stars +</option>
+                </select>
             </div>
             <!-- price filter -->
             <div class="form-group">
@@ -165,8 +190,11 @@
                 $<output name="pricerangevalue" for="pricerange" >{{actual_max_price}}</output>
             </div>
             <!-- submission buttons -->
-            <input type="submit" class="btn btn-info d-block rounded-pill w-100 mt-4 small-font" value="UPDATE">
-            <a href="#" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 small-font" value="RESET FILTER"></a>
+            <!-- submission buttons -->
+            <input type="submit" class="btn btn-info d-block rounded-pill w-100 mt-4 small-font" value="APPLY">
+            <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 small-font"
+              value="RESET">
+              <a class="btn btn-outline-info d-block rounded-pill w-100 mt-3 mb-5 small-font" href="{{ url_for('main.index') }}">REMOVE ALL</a>
 
           </form>
         </div>

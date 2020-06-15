@@ -9,7 +9,7 @@ bp = Blueprint('main', __name__,)
 
 @bp.route('/', methods=['GET'])
 def index():
-    product_list = Product.query.order_by(Product.created).all()
+    product_list = Product.query.order_by(Product.created.desc()).all()
     total_results = len(product_list)
 
     if (not product_list): #if no products exist then return 404
@@ -34,7 +34,7 @@ def index():
 @bp.route('/<category>', methods=['GET'])
 def index_category(category):
 
-    product_list = Product.query.filter_by(category=category).order_by(Product.created).all()
+    product_list = Product.query.filter_by(category=category).order_by(Product.created.desc()).all()
     total_results = len(product_list)
 
     if (not product_list): #if no products exist then return 404
@@ -64,14 +64,14 @@ def filter():
     price_max = 0
     search = ""
     order_dict = {
-        "Latest": Product.created,
+        "Latest": Product.created.desc(),
         "Least Expensive": Product.price,
         "Most Expensive": Product.price.desc(),
         "Alphabetical": Product.name,
     }
 
     #get result of all products
-    complete_product_list = refine(Product.query.order_by(Product.created).all())
+    complete_product_list = refine(Product.query.order_by(Product.created.desc()).all())
 
     if request.method == 'POST':
         rating_min = int(request.form['rating'])
