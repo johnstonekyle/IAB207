@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from .models import Product
+from .models import Product, Comment
 import os
 from . import db
 import math
@@ -19,6 +19,7 @@ def index():
 
     return render_template('index.html',
         products = product_list,
+        user_rating = 0,
         order = "Latest",
         category = "All Products",
         #caluclate max price
@@ -43,6 +44,7 @@ def index_category(category):
 
     return render_template('index.html',
         products = product_list,
+        user_rating = 0,
         order = "Latest",
         category = category,
         #caluclate max price
@@ -58,7 +60,7 @@ def index_category(category):
 @bp.route('/filter', methods = ['POST', 'GET'])
 def filter():
     #initiate variables
-    rating_min = 0
+    rating_min = 0.0
     price_max = 0
     search = ""
     order_dict = {
@@ -72,7 +74,7 @@ def filter():
     complete_product_list = refine(Product.query.order_by(Product.created).all())
 
     if request.method == 'POST':
-        rating_min = request.form['rating']
+        rating_min = int(request.form['rating'])
         price_max = request.form['pricerange']
         user_category = request.form['category']
         search = request.form['search']
@@ -90,8 +92,7 @@ def filter():
         product_list = Product.query.filter(and_(Product.price <=price_max,
             Product.category == user_category,
             or_(Product.name.like(search), 
-            Product.description.like("%" + search + "%")),
-            )).order_by(order_dict[order]).all()
+            Product.description.like("%" + search + "%")))).order_by(order_dict[order]).all()
 
     if (not product_list): #if no products exist then return 404
         return render_template('404.html')
@@ -99,8 +100,17 @@ def filter():
         #refine the data within the given result
         product_list = refine(product_list)
 
+    #check if product rating average greater than minimum rating
+    reduced_product_list = []
+    if int(rating_min) >= 1:
+        for product in product_list:
+            if product.rating != "N/A" and int(product.rating) >= int(rating_min):
+                reduced_product_list.append(product)
+        product_list = reduced_product_list
+
     return render_template('index.html',
         user_search = search,
+        user_rating = rating_min,
         products = product_list,
         order = order,
         category = user_category,

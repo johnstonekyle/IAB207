@@ -51,35 +51,55 @@
         <!-- rating filter -->
         <div class="form-head pb-1 mb-3 pt-5 border-bottom">RATING</div>
         <div class="mt-2 custom-control custom-radio">
-          <input type="radio" class="custom-control-input" name="rating" id="zeroStars" value="0" checked>
+          {% if user_rating==0 %}
+            <input type="radio" class="custom-control-input" name="rating" id="zeroStars" value="0" checked>
+          {% else %}
+            <input type="radio" class="custom-control-input" name="rating" id="zeroStars" value="0">
+          {% endif %}
           <label for="zeroStars" class="text-muted custom-control-label">
             <i class="far fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i> <i
               class="far fa-star"></i> <i class="far fa-star"></i> +
           </label>
         </div>
         <div class="mt-2 custom-control custom-radio">
-          <input type="radio" class="custom-control-input" name="rating" id="oneStars" value="1">
+          {% if user_rating==1 %}
+            <input type="radio" class="custom-control-input" name="rating" id="oneStars" value="1" checked>
+          {% else %}
+            <input type="radio" class="custom-control-input" name="rating" id="oneStars" value="1">
+          {% endif %}
           <label for="oneStars" class="text-muted custom-control-label">
             <i class="fas fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i> <i
               class="far fa-star"></i> <i class="far fa-star"></i> +
           </label>
         </div>
         <div class="mt-2 custom-control custom-radio">
+          {% if user_rating==2 %}
+          <input type="radio" class="custom-control-input" name="rating" id="twoStars" value="2" checked>
+          {% else %}
           <input type="radio" class="custom-control-input" name="rating" id="twoStars" value="2">
+          {% endif %}
           <label for="twoStars" class="text-muted custom-control-label">
             <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="far fa-star"></i> <i
               class="far fa-star"></i> <i class="far fa-star"></i> +
           </label>
         </div>
         <div class="mt-2 custom-control custom-radio">
+          {% if user_rating==3 %}
+          <input type="radio" class="custom-control-input" name="rating" id="threeStars" value="3" checked>
+          {% else %}
           <input type="radio" class="custom-control-input" name="rating" id="threeStars" value="3">
+          {% endif %}
           <label for="threeStars" class="text-muted custom-control-label">
             <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
               class="far fa-star"></i> <i class="far fa-star"></i> +
           </label>
         </div>
         <div class="mt-2 custom-control custom-radio">
+          {% if user_rating==4 %}
+          <input type="radio" class="custom-control-input" name="rating" id="fourStars" value="4" checked>
+          {% else %}
           <input type="radio" class="custom-control-input" name="rating" id="fourStars" value="4">
+          {% endif %}
           <label for="fourStars" class="text-muted custom-control-label">
             <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
               class="fas fa-star"></i> <i class="far fa-star"></i> +
@@ -94,7 +114,7 @@
 
         <!-- submission buttons -->
         <input type="submit" class="btn btn-info d-block rounded-pill w-100 mt-4 small-font" value="APPLY">
-        <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 mb-5 small-font"
+        <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 small-font"
           value="RESET">
         <a href="{{ url_for('main.index') }}">
           <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 mb-5 small-font" value="REMOVE ALL">
