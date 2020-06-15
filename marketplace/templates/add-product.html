@@ -73,7 +73,7 @@
 
         <div class="row">
             <!-- primary image input -->
-            <div class="col-sm-4">
+            <div class="col-sm-4 pl-3 pr-3">
                 <div class="form-group">
                     <!-- <label class="small-font form-head" for="imgOneInput">PRIMARY IMAGE</label>
                     <input type="file" class="form-control-file border small-font" id="imgOneInput"> -->
@@ -82,7 +82,7 @@
                 </div>
             </div>
             <!-- second image input -->
-            <div class="col-sm-4">
+            <div class="col-sm-4 pl-3 pr-3">
                 <div class="form-group">
                     <!-- <label class="small-font form-head" for="imgTwoInput">SECOND IMAGE</label>
                     <input type="file" class="form-control-file border small-font" id="imgTwoInput"> -->
@@ -91,7 +91,7 @@
                 </div>
             </div>
             <!-- third image input -->
-            <div class="col-sm-4">
+            <div class="col-sm-4 pl-3 pr-3">
                 <div class="form-group">
                     <!-- <label class="small-font form-head" for="imgThreeInput">THIRD IMAGE</label>
                     <input type="file" class="form-control-file border small-font" id="imgThreeInput"> -->
@@ -116,14 +116,13 @@
         {% endwith %}
 
         <!-- submission buttons -->
-        <!-- <button type="button" class="btn btn-info font-weight-bold order-btn form-control mt-3" data-toggle="modal"
+        <button type="button" class="btn btn-info font-weight-bold order-btn form-control mt-3" data-toggle="modal"
             data-target="#productModal">
-            Confirm
-        </button> -->
-        {{ form.submit(class_="btn btn-info font-weight-bold order-btn form-control mt-3") }}
+            Add Product
+        </button>
 
         <!-- modal -->
-        <!-- <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalTitle"
+        <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalTitle"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -134,18 +133,16 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you wish to add/update
-                        <span class="text-info font-weight-bold">Angry Shiba Dog</span> with
-                        <span class="text-info font-weight-bold">12</span> stock p/ month at
-                        <span class="text-info font-weight-bold">$18</span>?
+                        Are you sure you wish to add this product?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <a href="{{ url_for('main.index') }}" type="button" class="btn btn-info">Yes</a>
+                        <!-- <a href="{{ url_for('main.index') }}" type="button" class="btn btn-info">Yes</a> -->
+                        {{ form.submit(class_="btn btn-info") }}
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </form>
 </div>
 

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container content-container">
+    <h2 class="text-dark font-weight-light border-bottom">{{heading}}</h2>
+
+
+
+    <div class="col-md-6 ml-3 mt-4">
+        
+        {% if heading|lower == 'your order' %}
+
+            <span class="font-weight-bold">Your Order ID:</span> {{ data.id }} <br><br>
+            <span class="font-weight-bold">Sent To Address:</span> {{ data.address }} <br><br>
+            <span class="font-weight-bold">Quantity of Items Purchased:</span> {{ data.quantity }} <br><br>
+            <span class="font-weight-bold">Total Cost of Purchase:</span> ${{ '%0.2f' % data.total_cost|float }} <br><br>
+            <span class="font-weight-bold">Time Purchased:</span> {{ data.created.strftime("%A %d/%m/%Y, %I:%M %p") }} <br><br><br>
+
+            
+            <h4 class="">Product Information</h4><br>
+            <span class="font-weight-bold">View Product:</span> <a href="{{ url_for('product.view', id=data.product_id) }}">Click here</a> <br><br>
+            <span class="font-weight-bold">Product Name:</span> {{ extra_data.name }} <br><br>
+            <span class="font-weight-bold">Price per Unit:</span> ${{ '%0.2f' % extra_data.price|float }} <br><br>
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}
