@@ -42,14 +42,19 @@ def register():
         email = register.email_id.data
         pnum = register.phone.data
         status = register.seller.data
+        bankdetails = register.bankdetails.data
 
         u1 = User.query.filter_by(username=uname).first()
         if u1:
             flash("Username already exists! Please login.")
             return redirect(url_for("auth.login"))
         
+        if (bankdetails == '') and (register.seller.data == True):
+            flash("To register as a seller, you must provide your bank details.")
+            return redirect(url_for("auth.register"))
+        
         pwd_hash = generate_password_hash(pwd)
-        new_user = User(username=uname, password_hash=pwd_hash, email=email, phone=pnum, seller=status)
+        new_user = User(username=uname, password_hash=pwd_hash, email=email, phone=pnum, seller=status, bank_account=bankdetails)
         db.session.add(new_user)
         db.session.commit()
 
