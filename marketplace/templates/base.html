@@ -13,6 +13,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/3510c8fda1.js" crossorigin="anonymous"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,12 +43,12 @@
                         </a>
                         <div class="dropdown-menu small-font" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ url_for('main.index') }}">All Products</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Teddy Bears</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Farm Animals</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Cats & Dogs</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Wild Animals</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Water Creatures</a>
-                            <a class="dropdown-item" href="{{ url_for('main.index') }}">Other</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Teddy Bears') }}">Teddy Bears</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Farm Animals') }}">Farm Animals</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Cats & Dogs') }}">Cats & Dogs</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Wild Animals') }}">Wild Animals</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Water Creatures') }}">Water Creatures</a>
+                            <a class="dropdown-item" href="{{ url_for('main.index_category', category='Other') }}">Other</a>
                         </div>
                     </li>
                     <li class="nav-item">

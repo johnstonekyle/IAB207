@@ -2,19 +2,46 @@ from flask import Blueprint, render_template
 from .models import Product
 import os
 from . import db
+import math
 
-bp = Blueprint('main', __name__)
+bp = Blueprint('main', __name__,)
+
+order_options = ["Product.created", "Product.price", "Product.price.desc", "Product.product"]
 
 
 @bp.route('/', methods=['GET'])
 def index():
     product_list = Product.query.order_by(Product.created).all()
-    
+    total_results = len(product_list)
+
     if (not product_list): #if no products exist then return 404
         return render_template('404.html')
 
+    return render_template('index.html', products = refine(product_list), category = "All Products", max_price=find_max(product_list), total_results = total_results)
+
+@bp.route('/<category>', methods=['GET'])
+def index_category(category):
+
+    product_list = Product.query.filter_by(category=category).order_by(Product.created).all()
+    total_results = len(product_list)
+
+    if (not product_list): #if no products exist then return 404
+        return render_template('404.html')
+
+    return render_template('index.html', products = refine(product_list), category = category, max_price=find_max(product_list), total_results = total_results)
+
+#user query
+def user_query():
+    product_list = Product.query.order_by(Product.created).all()
+    if (not product_list): #if no products exist then return 404
+        return render_template('404.html')
+
+    return render_template('index.html', products = refine(product_list))
+
+##Function which analyses and refines all data gathered for users 
+def refine(result): 
     #round price to 2 decimal places
-    for product in product_list:
+    for product in result:
         product.price = round(product.price, 2)
     
         #get review rating average
@@ -28,5 +55,14 @@ def index():
         else:
             product.rating = 'N/A'
 
-    return render_template('index.html', products = product_list)
+    return result
 
+def find_max(result):
+    max_value = 0  #initialise maximum value
+    current_value = 0
+    for product in result:
+        current_value = round(5 * (math.ceil(product.price / 5)), 0) #round up to next 5
+        if current_value > max_value:
+            max_value = current_value
+    
+    return max_value
