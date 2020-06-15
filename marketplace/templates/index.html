@@ -9,12 +9,27 @@
 
     <!-- filter form side panel --FOR LARGE SCREENS-- -->
     <div class="col-md-3 d-none d-md-block">
+      <h2 class="text-dark font-weight-light">Filter</h2>
       <form action="/filter" method= "POST" oninput="pricerangevalue.value = pricerange.valueAsNumber" class="text-dark small-font">
+        <div class="form-group">
+          <select class="form-control" id="order" name="order">
+            <!-- current category -->
+            <option value="{{ order }}" selected>{{ order }}</option> 
+            <!-- all categories -->
+            <option value="Latest">Latest</option>
+            <option value="Least Expensive">Least Expensive</option>
+            <option value="Most Expensive">Most Expensive</option>
+            <option value="Alphabetical">Alphabetical</option>
+          </select>
+        </div>
+        
+        <div class="form-head pb-1 mb-3 pt-4 border-bottom">PRODUCT AND DESCRIPTION</div>
         {% if user_search %}
         <input name="search" type="search" value="{{ user_search }}" class="form-control rounded-pill small-font" placeholder="{{ user_search }}">
         {% else %}
           <input name="search" type="search" class="form-control rounded-pill small-font" placeholder="Search">
         {% endif %}
+        <br>
         <!-- categories filter -->
         <div class="form-head pb-1 mb-3 pt-4 border-bottom">CATEGORY</div>
         <div class="form-group">
@@ -78,11 +93,12 @@
         $<output name="pricerangevalue" for="pricerange" >{{max_price}}</output>
 
         <!-- submission buttons -->
-        <input type="submit" class="btn btn-info d-block rounded-pill w-100 mt-4 small-font" value="UPDATE">
+        <input type="submit" class="btn btn-info d-block rounded-pill w-100 mt-4 small-font" value="APPLY">
         <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 mb-5 small-font"
           value="RESET">
-        <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 mb-5 small-font"
-          value="RESET">
+        <a href="{{ url_for('main.index') }}">
+          <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 mb-5 small-font" value="REMOVE ALL">
+        </a>
 
       </form>
 
@@ -144,20 +160,6 @@
       <div class="row border-bottom mb-4">
         <div class="col-8">
           <h2 class="text-dark font-weight-light">{{ category }}</h2>
-        </div>
-        <div class="col-4 text-right">
-          <div class="dropdown d-inline-block">
-            <button class="btn dropdown-toggle font-weight-light pb-0" type="button" id="dropdownSort"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Latest
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownSort">
-              <a class="dropdown-item font-weight-light" href="#">Latest</a>
-              <a class="dropdown-item font-weight-light" href="#">A-Z</a>
-              <a class="dropdown-item font-weight-light" href="#">Price - Low to High</a>
-              <a class="dropdown-item font-weight-light" href="#">Price - High to Low</a>
-            </div>
-          </div>
         </div>
       </div>
       <small class="text-muted ">Showing {{ total_results }}  of {{actual_results}} products</small>

@@ -19,6 +19,7 @@ def index():
 
     return render_template('index.html',
         products = product_list,
+        order = "Latest",
         category = "All Products",
         #caluclate max price
         max_price = find_max(product_list), 
@@ -42,6 +43,7 @@ def index_category(category):
 
     return render_template('index.html',
         products = product_list,
+        order = "Latest",
         category = category,
         #caluclate max price
         max_price = find_max(product_list),
@@ -59,6 +61,12 @@ def filter():
     rating_min = 0
     price_max = 0
     search = ""
+    order_dict = {
+        "Latest": Product.created,
+        "Least Expensive": Product.price,
+        "Most Expensive": Product.price.desc(),
+        "Alphabetical": Product.name,
+    }
 
     #get result of all products
     complete_product_list = refine(Product.query.order_by(Product.created).all())
@@ -68,35 +76,35 @@ def filter():
         price_max = request.form['pricerange']
         user_category = request.form['category']
         search = request.form['search']
+        order = request.form['order']
 
    
     #if category is all, ignore category case
     if user_category == "All Products":
         product_list = Product.query.filter(and_(price_max>=Product.price,
             or_(Product.name.like("%" + search + "%"),
-            Product.description.like("%" + search + "%")))).order_by(Product.created).all()
+            Product.description.like("%" + search + "%")),
+            )).order_by(order_dict[order]).all()
     
-        #product_list = Product.query.with_entities(func.avg(Rating.field2).label('average')).filter_by(price_max >=Product.price, ).group_by(Product.product).order_by(Product.created).all()
     else:
         product_list = Product.query.filter(and_(Product.price <=price_max,
             Product.category == user_category,
             or_(Product.name.like(search), 
-            Product.description.like("%" + search + "%")))).order_by(Product.created).all()
+            Product.description.like("%" + search + "%")),
+            )).order_by(order_dict[order]).all()
 
     if (not product_list): #if no products exist then return 404
         return render_template('404.html')
     else:
         #refine the data within the given result
         product_list = refine(product_list)
-        
-        #calculate total number of results
-        actual_results = len(product_list)
 
     return render_template('index.html',
         user_search = search,
         products = product_list,
+        order = order,
         category = user_category,
-        #caluclate max price
+        #calculate max price
         max_price = price_max, #user specified
         actual_max_price=find_max(complete_product_list),
         #calculate number of results
