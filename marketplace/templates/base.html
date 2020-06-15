@@ -51,9 +51,16 @@
                             <a class="dropdown-item" href="{{ url_for('main.index_category', category='Other') }}">Other</a>
                         </div>
                     </li>
+                    
                     {% if current_user.seller == True %} <!--if user is a seller, allow them to add a product-->
                         <li class="nav-item">
                             <a class="nav-link text-secondary small-font" href="{{ url_for('product.add') }}">ADD PRODUCT</a>
+                        </li>
+                    {% endif %}
+
+                    {% if current_user.seller != True %} <!--if user is not a seller, redirect to login-->
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary small-font" href="{{ url_for('auth.login') }}">ADD PRODUCT</a>
                         </li>
                     {% endif %}
 
