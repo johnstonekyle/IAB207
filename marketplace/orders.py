@@ -28,10 +28,12 @@ def order(id):
         #if (quantity > int(product.current_stock)):
         #if it is not, throw error
         #if it is, reduce current stock by amount purchased
+        #newstock = round(product.current_stock - quantity)
         
-        
-        new_order = Order(address=address, quantity=quantity, total_cost=totalcost, buyer_id=current_user.id, product_id=id)
+        #updatestock = Product(current_stock=newstock)
+        #new_order = Order(address=address, quantity=quantity, total_cost=totalcost, buyer_id=current_user.id, product_id=id)
         db.session.add(new_order)
+        #db.session.add(updatestock)
         db.session.commit()
 
         return redirect(url_for("main.index"))
