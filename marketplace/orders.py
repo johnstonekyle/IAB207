@@ -40,7 +40,18 @@ def order(id):
         new_order = Order(address=address, quantity=quantity, total_cost=totalcost, buyer_id=current_user.id, product_id=id)
         db.session.add(new_order)
         db.session.commit()
-        return redirect(url_for("main.index"))
+        return redirect(url_for("order.confirmation", id=new_order.id))
 
     else:
         return render_template("order.html", form=order, heading="Order Confirmation")
+
+@bp.route("/confirm<id>", methods=["GET", "POST"])
+@login_required #would be better to specify must logged in as a buyer
+def confirmation(id):
+    
+    order = Order.query.filter_by(id=id).first()
+
+    #get product information
+    product = Product.query.filter_by(id=order.product_id).first()
+
+    return render_template("confirmation.html", data=order, extra_data=product, heading="Your Order")

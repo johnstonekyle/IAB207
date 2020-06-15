@@ -20,8 +20,91 @@
     {% endwith %}
 
 
-    <div class="col-md-6 ml-5">
-        {{wtf.quick_form(form)}}
+    <div class="order-container">
+
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+
+            <div class="row">
+                <!-- quantity input -->
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        {{ form.quantity.label(class_="small-font form-head") }}
+                        {{ form.quantity(class_="form-control small-font", placeholder="Enter quantity") }}
+                    </div>
+                </div>
+                <!-- state input -->
+                <div class="col-sm-4 pl-3 pr-3">
+                    <div class="form-group">
+                        {{ form.state.label(class_="small-font form-head") }}
+                        {{ form.state(class_="form-control small-font") }}
+                    </div>
+                </div>
+                <!-- city suburb input -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form.city.label(class_="small-font form-head") }}
+                        {{ form.city(class_="form-control small-font", placeholder="Enter city or suburb") }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- postcode input -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form.postcode.label(class_="small-font form-head") }}
+                        {{ form.postcode(class_="form-control small-font", placeholder="Enter postcode") }}
+                    </div>
+                </div>
+                <!-- address input -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form.address.label(class_="small-font form-head") }}
+                        {{ form.address(class_="form-control small-font", placeholder="Enter address") }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- additional information input -->
+                <div class="col">
+                    <div class="form-group">
+                        {{ form.addinfo.label(class_="small-font form-head") }}
+                        {{ form.addinfo(class_="form-control small-font", placeholder="Enter additional information") }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- submission buttons -->
+            <button type="button" class="btn btn-info font-weight-bold order-btn form-control mt-3" data-toggle="modal"
+                data-target="#orderModal">
+                Confirm Order
+            </button>
+
+            <!-- modal -->
+            <div class="modal fade" id="orderModal" tabindex="-1" role="dialog"
+                aria-labelledby="orderModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="orderModalLongTitle">Order Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you wish to order this product?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            {{ form.submit(class_="btn btn-info") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
     </div>
 
 
