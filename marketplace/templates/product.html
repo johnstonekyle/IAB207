@@ -108,14 +108,12 @@
     {% if current_user.seller == False %}
     <form method="POST">
         {{ form.csrf_token }}
-        <!-- <div class="small-font form-head" for="reviewInput">POST A REVIEW</div> -->
         {{ form.text.label(class_="small-font form-head") }}
 
         <div class="row">
             <!-- review description input -->
             <div class="col mt-2">
                 <div class="form-group m-0">
-                    <!-- <textarea type="text" class="form-control small-font" id="reviewInput">Enter review</textarea> -->
                     {{ form.text(class_="form-control small-font", placeholder="Enter review") }}
                 </div>
             </div>
@@ -124,30 +122,21 @@
         <div class="row">
             <!-- rating input -->
             <div class="col-sm-3 mt-2">
-                <!-- <select id="ratingInput" class="form-control small-font">
-                    <option selected>Select rating</option>
-                    <option>1 Star</option>
-                    <option>2 Star</option>
-                    <option>3 Star</option>
-                    <option>4 Star</option>
-                    <option>5 Star</option>
-                </select> -->
                 {{ form.rating(class_="form-control small-font") }}
             </div>
             <!-- title input -->
             <div class="col-sm-6 mt-2">
-                <!-- <input class="form-control small-font" type="text" placeholder="Enter title"> -->
                 {{ form.title(class_="form-control small-font", placeholder="Enter title") }}
             </div>
             <!-- submission button -->
             <div class="col-sm-3 mt-2">
-                <!-- <input class="btn btn-outline-info small-font form-control" type="submit" value="Post"> -->
                 {{ form.submit(class_="btn btn-outline-info form-control small-font") }}
             </div>
         </div>
     </form>
     {% endif %}
 
+    <!-- flash form errors -->
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div class="container">
@@ -162,8 +151,11 @@
         {% endif %}
     {% endwith %}
 
-    {% for comment in comments %}
+    {% if reviewCount == 0 %}
+        <h3 class="text-center mt-5 text-muted"> No Reviews Available for this Product </h3>
+    {% endif %}
 
+    {% for comment in comments %}
     <!-- review -->
     <div class="mt-4 mb-2 border p-4">
         <div class="row">

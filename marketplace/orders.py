@@ -15,8 +15,9 @@ def order(id):
     order = OrderForm()
     error = None
     if (order.validate_on_submit()):
-        #retrieve information from the form
+        
         product = Product.query.filter_by(id=id).first()
+        #retrieve information from the form
         quantity = order.quantity.data
         state = order.state.data
         city = order.city.data

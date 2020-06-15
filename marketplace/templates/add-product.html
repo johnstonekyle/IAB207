@@ -13,8 +13,6 @@
             <!-- stock input -->
             <div class="col-sm-3">
                 <div class="form-group">
-                    <!-- <label class="small-font form-head" for="stockInput">STOCK /p MONTH</label>
-                    <input class="form-control small-font" type="number" placeholder="Enter stock" id="stockInput"> -->
                     {{ form.stock.label(class_="small-font form-head") }}
                     {{ form.stock(class_="form-control small-font", placeholder="Enter monthly stock") }}
                 </div>
@@ -22,16 +20,6 @@
             <!-- category input -->
             <div class="col-sm-6">
                 <div class="form-group">
-                    <!-- <label for="categoryInput" class="small-font form-head">CATEGORY</label>
-                    <select id="categoryInput" class="form-control small-font">
-                        <option selected>Select category</option>
-                        <option>Teddy Bears</option>
-                        <option>Farm Animals</option>
-                        <option>Cats & Dogs</option>
-                        <option>Wild Animals</option>
-                        <option>Water Creatures</option>
-                        <option>Other</option>
-                    </select> -->
                     {{ form.category.label(class_="small-font form-head") }}
                     {{ form.category(class_="form-control small-font") }}
                 </div>
@@ -39,8 +27,6 @@
             <!-- price input -->
             <div class="col-sm-3">
                 <div class="form-group">
-                    <!-- <label class="small-font form-head" for="priceInput">PRICE</label>
-                    <input type="number" class="form-control small-font" id="priceInput" placeholder="Enter price"> -->
                     {{ form.price.label(class_="small-font form-head") }}
                     {{ form.price(class_="form-control small-font", placeholder="Enter price") }}
                 </div>
@@ -51,8 +37,6 @@
             <!-- name input -->
             <div class="col">
                 <div class="form-group">
-                    <!-- <label class="small-font form-head" for="nameInput">PRODUCT NAME</label>
-                    <input type="text" class="form-control small-font" id="nameInput" placeholder="Enter product name"> -->
                     {{ form.name.label(class_="small-font form-head") }}
                     {{ form.name(class_="form-control small-font", placeholder="Enter product name") }}
                 </div>
@@ -63,8 +47,6 @@
             <!-- description input -->
             <div class="col">
                 <div class="form-group">
-                    <!-- <label class="small-font form-head" for="descInput">DESCRIPTION</label>
-                    <textarea type="text" class="form-control small-font" id="descInput">Enter description</textarea> -->
                     {{ form.description.label(class_="small-font form-head") }}
                     {{ form.description(class_="form-control small-font", placeholder="Enter description") }}
                 </div>
@@ -75,8 +57,6 @@
             <!-- primary image input -->
             <div class="col-sm-4 pl-3 pr-3">
                 <div class="form-group">
-                    <!-- <label class="small-font form-head" for="imgOneInput">PRIMARY IMAGE</label>
-                    <input type="file" class="form-control-file border small-font" id="imgOneInput"> -->
                     {{ form.image_one.label(class_="small-font form-head") }}
                     {{ form.image_one(class_="form-control-file small-font") }}
                 </div>
@@ -84,8 +64,6 @@
             <!-- second image input -->
             <div class="col-sm-4 pl-3 pr-3">
                 <div class="form-group">
-                    <!-- <label class="small-font form-head" for="imgTwoInput">SECOND IMAGE</label>
-                    <input type="file" class="form-control-file border small-font" id="imgTwoInput"> -->
                     {{ form.image_two.label(class_="small-font form-head") }}
                     {{ form.image_two(class_="form-control-file small-font") }}
                 </div>
@@ -93,8 +71,6 @@
             <!-- third image input -->
             <div class="col-sm-4 pl-3 pr-3">
                 <div class="form-group">
-                    <!-- <label class="small-font form-head" for="imgThreeInput">THIRD IMAGE</label>
-                    <input type="file" class="form-control-file border small-font" id="imgThreeInput"> -->
                     {{ form.image_three.label(class_="small-font form-head") }}
                     {{ form.image_three(class_="form-control-file small-font") }}
                 </div>
@@ -137,7 +113,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <!-- <a href="{{ url_for('main.index') }}" type="button" class="btn btn-info">Yes</a> -->
                         {{ form.submit(class_="btn btn-info") }}
                     </div>
                 </div>
