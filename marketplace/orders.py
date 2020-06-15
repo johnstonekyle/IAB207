@@ -13,6 +13,7 @@ bp = Blueprint('order', __name__, url_prefix='/order')
 @login_required #would be better to specify must logged in as a buyer
 def order(id):
     order = OrderForm()
+    error = None
     if (order.validate_on_submit()):
         #retrieve information from the form
         product = Product.query.filter_by(id=id).first()
@@ -22,21 +23,23 @@ def order(id):
         postcode = order.postcode.data
         address = order.address.data
         addinfo = order.addinfo.data
-        totalcost = (order.quantity.data * int(product.price))
+        totalcost = (order.quantity.data * product.price)
 
         #check if ordered quantity is less than current stock
-        #if (quantity > int(product.current_stock)):
-        #if it is not, throw error
-        #if it is, reduce current stock by amount purchased
-        #newstock = round(product.current_stock - quantity)
+        if (quantity > product.current_stock):
+            #if it is not, throw error
+            flash("Sorry, you can currently order only " + str(product.current_stock) + " units of this item.")
+            return redirect(url_for("order.order", id=product.id))
+            
+        else:
+            #if it is, reduce current stock by amount purchased
+            product.current_stock = (product.current_stock - quantity)
         
-        #updatestock = Product(current_stock=newstock)
+        
         new_order = Order(address=address, quantity=quantity, total_cost=totalcost, buyer_id=current_user.id, product_id=id)
         db.session.add(new_order)
-        #db.session.add(updatestock)
         db.session.commit()
-
         return redirect(url_for("main.index"))
-    
+
     else:
         return render_template("order.html", form=order, heading="Order Confirmation")
