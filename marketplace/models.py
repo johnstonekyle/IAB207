@@ -60,7 +60,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(30), index=True, unique=True, nullable=False)
     email = db.Column(db.String(100), index=True, unique=True, nullable=False)
     phone = db.Column(db.String(20), nullable=False)
-    bank_account = db.Column(db.Integer)
+    bank_account = db.Column(db.String(30))
     seller = db.Column(db.Boolean, nullable=False) #determines whether the user is a seller or buyer
     password_hash = db.Column(db.String(255), nullable=False)
 

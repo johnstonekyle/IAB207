@@ -18,7 +18,7 @@ class RegisterForm(FlaskForm):
 
     # ----- will need to change how this works as it does not allow for spaces (e.g. 0412 345 678) -----
     # ----- also currently has no control over min and max character inputs (e.g. phone number of 123) -----
-    phone = IntegerField("Phone Number", validators=[InputRequired("Enter a phone number.")])
+    phone = StringField("Phone Number", validators=[InputRequired("Enter a phone number.")])
 
     #linking two fields - password should be equal to data entered in confirm
     password=PasswordField("Password", validators=[InputRequired(),
