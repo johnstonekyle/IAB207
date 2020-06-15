@@ -31,7 +31,7 @@ def order(id):
         #newstock = round(product.current_stock - quantity)
         
         #updatestock = Product(current_stock=newstock)
-        #new_order = Order(address=address, quantity=quantity, total_cost=totalcost, buyer_id=current_user.id, product_id=id)
+        new_order = Order(address=address, quantity=quantity, total_cost=totalcost, buyer_id=current_user.id, product_id=id)
         db.session.add(new_order)
         #db.session.add(updatestock)
         db.session.commit()

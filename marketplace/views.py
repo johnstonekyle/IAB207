@@ -2,6 +2,7 @@ from flask import Blueprint, render_template
 from .models import Product
 import os
 from . import db
+import math
 
 bp = Blueprint('main', __name__,)
 
@@ -58,9 +59,10 @@ def refine(result):
 
 def find_max(result):
     max_value = 0  #initialise maximum value
+    current_value = 0
     for product in result:
-        product.price = round(product.price)
-        if product.price > max_value:
-            max_value = product.price
+        current_value = round(5 * (math.ceil(product.price / 5)), 0) #round up to next 5
+        if current_value > max_value:
+            max_value = current_value
     
     return max_value
