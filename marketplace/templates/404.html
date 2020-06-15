@@ -4,8 +4,9 @@
 
 <!-- content -->
 <div class="container content-container">
-    <h2 class="text-dark font-weight-light border-bottom">Error</h2>
-
+    <h2 class="text-dark font-weight-light border-bottom">We're Sorry!</h2>
+    <p class="mt-1" style="text-align:center;">It seems we've encountered an error!<br>Either the page or product you searched for doesnt exist, or we've made a mistake.</p>
+    <a href="{{ url_for('main.index') }}"><input class="btn btn-info d-block rounded-pill w-100 mt-4 medium-font" value="Return to Home here"></a>
 </div>
 
 {% endblock %}

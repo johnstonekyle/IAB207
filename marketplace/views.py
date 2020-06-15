@@ -1,13 +1,11 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from .models import Product
 import os
 from . import db
 import math
+from sqlalchemy import and_, or_
 
 bp = Blueprint('main', __name__,)
-
-order_options = ["Product.created", "Product.price", "Product.price.desc", "Product.product"]
-
 
 @bp.route('/', methods=['GET'])
 def index():
@@ -17,7 +15,19 @@ def index():
     if (not product_list): #if no products exist then return 404
         return render_template('404.html')
 
-    return render_template('index.html', products = refine(product_list), category = "All Products", max_price=find_max(product_list), total_results = total_results)
+    product_list = refine(product_list)
+
+    return render_template('index.html',
+        products = product_list,
+        category = "All Products",
+        #caluclate max price
+        max_price = find_max(product_list), 
+        actual_max_price=find_max(product_list),
+        #calculate number of results
+        actual_results = len(product_list),
+        total_results = len(product_list))
+
+
 
 @bp.route('/<category>', methods=['GET'])
 def index_category(category):
@@ -27,16 +37,74 @@ def index_category(category):
 
     if (not product_list): #if no products exist then return 404
         return render_template('404.html')
+    
+    product_list = refine(product_list)
 
-    return render_template('index.html', products = refine(product_list), category = category, max_price=find_max(product_list), total_results = total_results)
+    return render_template('index.html',
+        products = product_list,
+        category = category,
+        #caluclate max price
+        max_price = find_max(product_list),
+        actual_max_price=find_max(product_list),
+        #calculate number of results
+        actual_results = len(product_list),
+        total_results = len(product_list))
 
-#user query
-def user_query():
-    product_list = Product.query.order_by(Product.created).all()
+
+
+#produces a filtered list of results
+@bp.route('/filter', methods = ['POST', 'GET'])
+def filter():
+    #initiate variables
+    rating_min = 0
+    price_max = 0
+    search = ""
+
+    #get result of all products
+    complete_product_list = refine(Product.query.order_by(Product.created).all())
+
+    if request.method == 'POST':
+        rating_min = request.form['rating']
+        price_max = request.form['pricerange']
+        user_category = request.form['category']
+        search = request.form['search']
+
+   
+    #if category is all, ignore category case
+    if user_category == "All Products":
+        product_list = Product.query.filter(and_(price_max>=Product.price,
+            or_(Product.name.like("%" + search + "%"),
+            Product.description.like("%" + search + "%")))).order_by(Product.created).all()
+    
+        #product_list = Product.query.with_entities(func.avg(Rating.field2).label('average')).filter_by(price_max >=Product.price, ).group_by(Product.product).order_by(Product.created).all()
+    else:
+        product_list = Product.query.filter(and_(Product.price <=price_max,
+            Product.category == user_category,
+            or_(Product.name.like(search), 
+            Product.description.like("%" + search + "%")))).order_by(Product.created).all()
+
     if (not product_list): #if no products exist then return 404
         return render_template('404.html')
+    else:
+        #refine the data within the given result
+        product_list = refine(product_list)
+        
+        #calculate total number of results
+        actual_results = len(product_list)
 
-    return render_template('index.html', products = refine(product_list))
+    return render_template('index.html',
+        user_search = search,
+        products = product_list,
+        category = user_category,
+        #caluclate max price
+        max_price = price_max, #user specified
+        actual_max_price=find_max(complete_product_list),
+        #calculate number of results
+        actual_results = len(complete_product_list),
+        total_results = len(product_list))
+   
+
+#Custom Functions
 
 ##Function which analyses and refines all data gathered for users 
 def refine(result): 
@@ -57,6 +125,8 @@ def refine(result):
 
     return result
 
+
+#identifies max value in list of products
 def find_max(result):
     max_value = 0  #initialise maximum value
     current_value = 0

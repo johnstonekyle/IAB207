@@ -61,7 +61,11 @@
             <p class="small-font">{{ product.description }}</p>
 
             <div class="small-font form-head mt-3">REMAINING STOCK</div>
-            <p class="small-font">{{ product.current_stock }}</p>
+            {% if product.current_stock > 0 %} <!--if product is available, display stock-->
+                <p class="small-font">{{ product.current_stock }}</p>
+            {% else%}
+                <p class="small-font text-danger">Out of Stock</p>
+            {% endif %}
 
             <div class="row mt-2">
                 <div class="col-2">
