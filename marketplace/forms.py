@@ -7,18 +7,18 @@ from flask_wtf.file import FileField, FileAllowed, FileRequired
 
 #creates the login information
 class LoginForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired('Enter user name.')])
-    password=PasswordField("Password", validators=[InputRequired('Enter user password.')])
+    user_name = StringField("User Name", validators=[InputRequired('Enter user name.'), Length(min=1, max=30, message="Max length of 30 characters")])
+    password = PasswordField("Password", validators=[InputRequired('Enter user password.'), Length(min=1, max=30, message="Max length of 30 characters")])
     submit = SubmitField("Login")
 
  # this is the registration form
 class RegisterForm(FlaskForm):
-    user_name = StringField("User Name", validators=[InputRequired()])
-    email_id = StringField("Email Address", validators=[Email("Enter a valid email.")])
+    user_name = StringField("User Name", validators=[InputRequired(), Length(min=1, max=30, message="Max length of 30 characters")])
+    email_id = StringField("Email Address", validators=[Email("Enter a valid email."), Length(min=1, max=30, message="Max length of 30 characters")])
 
     # ----- will need to change how this works as it does not allow for spaces (e.g. 0412 345 678) -----
     # ----- also currently has no control over min and max character inputs (e.g. phone number of 123) -----
-    phone = IntegerField("Phone Number", validators=[InputRequired("Enter a phone number.")])
+    phone = IntegerField("Phone Number", validators=[InputRequired("Enter a phone number."), Length(min=7, max=15, message="Max length of 15 numbers")])
 
     #linking two fields - password should be equal to data entered in confirm
     password=PasswordField("Password", validators=[InputRequired(),
@@ -65,3 +65,18 @@ class ReviewForm(FlaskForm):
     title = StringField("TITLE", validators=[InputRequired(), Length(min=1, max=100, message="Max length of 100 characters")])
 
     submit = SubmitField("Post")
+
+
+#this is the order form
+class OrderForm(FlaskForm):
+    #max quantity must be less than stock, otherwise error
+    quantity = IntegerField("Quantity", validators=[InputRequired('Enter a quantity.')])
+    
+    #two of each because requires label and value
+    state = SelectField("State", choices=[('QLD', 'QLD'), ('NSW', 'NSW'), ('VIC', 'VIC'), ('WA', 'WA'), ('SA', 'SA'), ('TAS', 'TAS'), ('NT', 'NT'), ('ACT', 'ACT')])
+    
+    city = StringField("City or Suburb", validators=[InputRequired('Enter a city or suburb.'), Length(min=1, max=100, message="Max length of 100 characters")])
+    postcode = IntegerField("Postcode", validators=[InputRequired('Enter a postcode.')])
+    address = StringField("Address", validators=[InputRequired('Enter an address.'), Length(min=1, max=100, message="Max length of 100 characters")])
+    addinfo = TextAreaField("Additional Information", validators=[Length(min=0, max=500, message="Max length of 500 characters")])
+    submit = SubmitField("Confirm Order")
