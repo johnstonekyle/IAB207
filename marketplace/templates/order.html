@@ -1,118 +1,63 @@
 {% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
-
-<!-- content -->
 <div class="container content-container">
-    <h2 class="text-dark font-weight-light border-bottom">Order Angry Shiba Dog</h2>
-    <div class="order-container">
-        <h5 class="mb-3">Please enter your shipping details accurately</h5>
-
-        <!-- form -->
-        <form>
-            <div class="row">
-                <!-- quantity input -->
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="small-font form-head" for="quantityInput">QUANTITY</label>
-                        <input class="form-control small-font" type="number" value="1" id="quantityInput">
-                    </div>
-                </div>
-                <!-- state input -->
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label for="stateInput" class="small-font form-head">STATE</label>
-                        <select id="stateInput" class="form-control small-font">
-                            <option selected>Select state</option>
-                            <option>ACT</option>
-                            <option>NSW</option>
-                            <option>NT</option>
-                            <option>QLD</option>
-                            <option>SA</option>
-                            <option>TAS</option>
-                            <option>VIC</option>
-                            <option>WA</option>
-                        </select>
-                    </div>
-                </div>
-                <!-- city suburb input -->
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="small-font form-head" for="citySuburbInput">CITY / SUBURB</label>
-                        <input type="text" class="form-control small-font" id="citySuburbInput"
-                            placeholder="Enter city or suburb">
+    <h2 class="text-dark font-weight-light border-bottom">{{heading}}</h2>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="container">
+                <div class="row mt-3 mb-3">
+                    <div class="col md-12">
+                        {% for message in messages %}
+                        <div class="alert alert-danger">{{message}}</div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <!-- postcode input -->
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="small-font form-head" for="postcodeInput">POSTCODE</label>
-                        <input type="number" class="form-control small-font" id="postcodeInput"
-                            placeholder="Enter postcode">
-                    </div>
-                </div>
-                <!-- address input -->
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="small-font form-head" for="addressInput">ADDRESS</label>
-                        <input type="text" class="form-control small-font" id="addressInput"
-                            placeholder="Enter address">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <!-- additional information input -->
-                <div class="col">
-                    <div class="form-group">
-                        <label class="small-font form-head" for="descInput">ADDITIONAL INFORMATION</label>
-                        <textarea type="text" class="form-control small-font"
-                            id="descInput">Enter additional information</textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- submission buttons -->
-            <button type="button" class="btn btn-info font-weight-bold order-btn form-control mt-3" data-toggle="modal"
-                data-target="#orderModal">
-                Confirm Order
-            </button>
-
-            <!-- modal -->
-            <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalTitle"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="orderModalLongTitle">Order Confirmation</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you wish to order
-                            <span class="text-info font-weight-bold">1</span> of
-                            <span class="text-info font-weight-bold">Angry Shiba Dog</span> to
-                            <span class="text-info font-weight-bold">42 Wallaby Way, Sydney</span> for
-                            <span class="text-info font-weight-bold">$18</span>?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <a href="{{ url_for('main.index') }}" type="button" class="btn btn-info">Yes, Order</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        {% endif %}
+    {% endwith %}
 
 
-
-        </form>
-
+    <div class="col-md-6 ml-5">
+        {{wtf.quick_form(form)}}
     </div>
 
+
+    <!-- modal -->
+    <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLongTitle">Order Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you wish to order
+                <span class="text-info font-weight-bold">1</span> of
+                <span class="text-info font-weight-bold">Angry Shiba Dog</span> to
+                <span class="text-info font-weight-bold">42 Wallaby Way, Sydney</span> for
+                <span class="text-info font-weight-bold">$18</span>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a href="{{ url_for('main.index') }}" type="button" class="btn btn-info">Yes, Order</a>
+            </div>
+        </div>
+    </div>
 </div>
 
+
+
+
+
+
+
+</div>
 {% endblock %}
+
+
