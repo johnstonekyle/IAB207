@@ -77,9 +77,15 @@
             </div>
 
             <!-- order button -->
-            <a class="btn btn-info mt-4 pl-5 pr-5" href="{{ url_for('order.order', id=product.id) }}">
-                <h3 class="font-weight-bold">Order</h3>
-            </a>
+            {% if product.current_stock > 0 %} <!--if product is available, display order button-->
+                <a class="btn btn-info mt-4 pl-5 pr-5" href="{{ url_for('order.order', id=product.id) }}">
+                    <h3 class="font-weight-bold">Order</h3>
+                </a>
+            {% else %} <!--if product is out of stock, disable button-->
+                <a class="btn btn-danger btn-info mt-4 pl-5 pr-5" data-toggle="OOS-tooltip" data-placement="right" title="Unfortunately, I am Out of Stock for this month. Check in on me later!" disabled>
+                    <h3 style="color:white;" class="font-weight-bold">Order</h3>
+                </a>
+            {% endif %}
 
         </div>
     </div>
@@ -175,5 +181,11 @@
 
     {% endfor %}
 </div>
+
+<script>
+    $(document).ready(function(){
+      $('[data-toggle="OOS-tooltip"]').tooltip();   
+    });
+</script>
 
 {% endblock %}
