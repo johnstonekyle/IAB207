@@ -23,7 +23,7 @@ def order(id):
         postcode = order.postcode.data
         address = order.address.data
         addinfo = order.addinfo.data
-        totalcost = (order.quantity.data * int(product.price))
+        totalcost = (order.quantity.data * product.price)
 
         #check if ordered quantity is less than current stock
         if (quantity > product.current_stock):

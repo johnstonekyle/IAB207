@@ -78,9 +78,15 @@
 
             <!-- order button -->
             {% if product.current_stock > 0 %} <!--if product is available, display order button-->
-                <a class="btn btn-info mt-4 pl-5 pr-5" href="{{ url_for('order.order', id=product.id) }}">
-                    <h3 class="font-weight-bold">Order</h3>
-                </a>
+                {% if current_user.seller == False %} <!--if user is a buyer, allow them to buy-->
+                    <a class="btn btn-info mt-4 pl-5 pr-5" href="{{ url_for('order.order', id=product.id) }}">
+                        <h3 class="font-weight-bold">Order</h3>
+                    </a>
+                {% else %}
+                    <a class="btn btn-danger btn-info mt-4 pl-5 pr-5" data-toggle="OOS-tooltip" data-placement="right" title="You must be logged in as a buyer to purchase products!" disabled>
+                        <h3 style="color:white;" class="font-weight-bold">Order</h3>
+                    </a>
+                {% endif %}
             {% else %} <!--if product is out of stock, disable button-->
                 <a class="btn btn-danger btn-info mt-4 pl-5 pr-5" data-toggle="OOS-tooltip" data-placement="right" title="Unfortunately, I am Out of Stock for this month. Check in on me later!" disabled>
                     <h3 style="color:white;" class="font-weight-bold">Order</h3>
@@ -95,6 +101,7 @@
     <h2 class="text-dark font-weight-light border-bottom">Customer Reviews</h2>
 
     <!-- post a review form -->
+    {% if current_user.seller == False %}
     <form method="POST">
         {{ form.csrf_token }}
         <!-- <div class="small-font form-head" for="reviewInput">POST A REVIEW</div> -->
@@ -135,6 +142,7 @@
             </div>
         </div>
     </form>
+    {% endif %}
 
     {% with messages = get_flashed_messages() %}
         {% if messages %}
