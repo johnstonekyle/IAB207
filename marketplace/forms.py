@@ -1,7 +1,7 @@
 
 from flask_wtf import FlaskForm
 from wtforms.fields import TextAreaField,SubmitField, StringField, PasswordField, IntegerField, BooleanField, SelectField, DecimalField
-from wtforms.validators import InputRequired, Length, Email, EqualTo
+from wtforms.validators import InputRequired, Length, Email, EqualTo, Regexp
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 
 
@@ -35,22 +35,22 @@ class RegisterForm(FlaskForm):
 ALLOWED_FILE = {'png', 'jpg', 'JPG', 'PNG', 'bmp'}
 #this is the add product form
 class AddProductForm(FlaskForm):
-    stock = IntegerField("MONTHLY STOCK", validators=[InputRequired()])
+    stock = IntegerField("Monthly Stock", validators=[InputRequired()])
 
     #categories for selector. Must be declared in tuples
-    category = SelectField("CATEGORY", choices=[('Teddy Bears','Teddy Bears'), ('Farm Animals','Farm Animals'), ('Cats & Dogs','Cats & Dogs'), ('Wild Animals','Wild Animals'), ('Water Creatures','Water Creatures'), ('Other','Other')])
+    category = SelectField("Category", choices=[('Teddy Bears','Teddy Bears'), ('Farm Animals','Farm Animals'), ('Cats & Dogs','Cats & Dogs'), ('Wild Animals','Wild Animals'), ('Water Creatures','Water Creatures'), ('Other','Other')])
     
-    #currently accepts decimals with more than 2 decimal places. will need to create a regex validator
-    price = DecimalField("PRICE", validators=[InputRequired()], places=2)
+    #accepts up to 2 decimal places with regex validator
+    price = StringField("Price ($$.cc)", validators=[InputRequired(), Regexp('^[0-9]+(\.[0-9]{1,2})?$', message="Not a valid decimal input ($$.cc)")])
 
     #name and desc with a max character length matching the db
-    name = StringField("PRODUCT NAME", validators=[InputRequired(), Length(min=1, max=500, message="Max length of 100 characters")])
-    description = TextAreaField("DESCRIPTION", validators=[InputRequired(), Length(min=1, max=500, message="Max length of 500 characters")])
+    name = StringField("Product Name", validators=[InputRequired(), Length(min=1, max=500, message="Max length of 100 characters")])
+    description = TextAreaField("Description", validators=[InputRequired(), Length(min=1, max=500, message="Max length of 500 characters")])
 
     #only the primary should be required while the others are optional
-    image_one = FileField("PRIMARY IMAGE", validators=[FileRequired(), FileAllowed(ALLOWED_FILE, message="Only support jpg, JPG, png, PNG, bmp")])
-    image_two = FileField("SECOND IMAGE", validators=[FileAllowed(ALLOWED_FILE, message="Only support jpg, JPG, png, PNG, bmp")])
-    image_three = FileField("THIRD IMAGE", validators=[FileAllowed(ALLOWED_FILE, message="Only support jpg, JPG, png, PNG, bmp")])
+    image_one = FileField("Primary Image", validators=[FileRequired(), FileAllowed(ALLOWED_FILE, message="Only support jpg, JPG, png, PNG, bmp")])
+    image_two = FileField("Second Image", validators=[FileAllowed(ALLOWED_FILE, message="Only support jpg, JPG, png, PNG, bmp")])
+    image_three = FileField("Third Image", validators=[FileAllowed(ALLOWED_FILE, message="Only support jpg, JPG, png, PNG, bmp")])
 
     submit = SubmitField("Confirm")
 

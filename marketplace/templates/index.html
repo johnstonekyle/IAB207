@@ -10,9 +10,10 @@
     <!-- filter form side panel --FOR LARGE SCREENS-- -->
     <div class="col-md-3 d-none d-md-block">
       <h2 class="text-dark font-weight-light">Filter</h2>
+
       <form action="/filter" method= "POST" oninput="pricerangevalue.value = pricerange.valueAsNumber" class="text-dark small-font">
         <div class="form-group">
-          <select class="form-control" id="order" name="order">
+          <select class="form-control small-font" id="order" name="order">
             <!-- current category -->
             <option value="{{ order }}" selected>{{ order }}</option> 
             <!-- all categories -->
@@ -33,7 +34,7 @@
         <!-- categories filter -->
         <div class="form-head pb-1 mb-3 pt-4 border-bottom">CATEGORY</div>
         <div class="form-group">
-          <select class="form-control" id="category" name="category">
+          <select class="form-control small-font" id="category" name="category">
             <!-- current category -->
             <option value="{{ category }}" selected>{{ category }}</option> 
             <!-- all categories -->
@@ -189,8 +190,7 @@
                 <input class="custom-slider-mobile" name="pricerange" type="range" step="5" min="0" max="{{actual_max_price}}" value="{{max_price}}">  
                 $<output name="pricerangevalue" for="pricerange" >{{actual_max_price}}</output>
             </div>
-            <!-- submission buttons -->
-            <!-- submission buttons -->
+            <!-- submission and reset buttons -->
             <input type="submit" class="btn btn-info d-block rounded-pill w-100 mt-4 small-font" value="APPLY">
             <input type="reset" class="btn btn-outline-info d-block rounded-pill w-100 mt-3 small-font"
               value="RESET">
@@ -241,27 +241,6 @@
           </div>
         {% endfor %}
       </div>
-
-      <!-- pagination
-      <nav class="mt-5">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link text-info" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link bg-info text-light" href="#">1</a></li>
-          <li class="page-item"><a class="page-link text-info" href="#">2</a></li>
-          <li class="page-item"><a class="page-link text-info" href="#">3</a></li>
-          <li class="page-item"><a class="page-link text-info" href="#">4</a></li>
-          <li class="page-item">
-            <a class="page-link text-info" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>-->
-
     </div>
   </div>
 </div>

@@ -10,10 +10,13 @@ bp = Blueprint('order', __name__, url_prefix='/order')
 
 
 @bp.route("/<id>", methods=["GET", "POST"])
-@login_required #would be better to specify must logged in as a buyer
+@login_required
 def order(id):
+    #check if user is a buyer
+    if(current_user.seller):
+        return redirect(url_for('product.view', id=id))
+
     order = OrderForm()
-    error = None
     if (order.validate_on_submit()):
         
         product = Product.query.filter_by(id=id).first()
@@ -24,6 +27,7 @@ def order(id):
         postcode = order.postcode.data
         address = order.address.data
         addinfo = order.addinfo.data
+        fullAddress = "{}, {}, {}, {}".format(address, city, postcode, state)
         totalcost = (order.quantity.data * product.price)
 
         #check if ordered quantity is less than current stock
@@ -37,18 +41,24 @@ def order(id):
             product.current_stock = (product.current_stock - quantity)
         
         
-        new_order = Order(address=address, quantity=quantity, total_cost=totalcost, buyer_id=current_user.id, product_id=id)
+        new_order = Order(address=fullAddress, quantity=quantity, total_cost=totalcost, buyer_id=current_user.id, product_id=id)
         db.session.add(new_order)
         db.session.commit()
         return redirect(url_for("order.confirmation", id=new_order.id))
 
     else:
+        # if validation fails, flash form errors
+        for field, errors in order.errors.items():
+            for error in errors:
+                flash(u"%s: %s" % (getattr(order, field).label.text.title(), error), 'error')
+
         return render_template("order.html", form=order, heading="Order Confirmation")
 
 @bp.route("/confirm<id>", methods=["GET", "POST"])
 @login_required #would be better to specify must logged in as a buyer
 def confirmation(id):
     
+    #get order information
     order = Order.query.filter_by(id=id).first()
 
     #get product information

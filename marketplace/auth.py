@@ -14,19 +14,26 @@ def login():
     login_form = LoginForm()
     error = None
     if(login_form.validate_on_submit()):
+        #get form data
         user_name = login_form.user_name.data
         password = login_form.password.data
+
+        #query database for user
         u1 = User.query.filter_by(username=user_name).first()
 
-        if u1 is None:
+        #if user doesnt exist then error
+        if u1 is None: 
             error="Incorrect username"
+
+        #if password doesnt match then error
         elif not check_password_hash(u1.password_hash, password):
             error = "Incorrect password"
-        if error is None:
+
+        if error is None: #if no errors then login the user and redirect
             login_user(u1)
             return redirect(url_for("main.index"))
         else:
-            flash(error)
+            flash(error) #display errors in html
 
 
     return render_template("user.html", form=login_form, heading="Login")
@@ -44,17 +51,24 @@ def register():
         status = register.seller.data
         bankdetails = register.bankdetails.data
 
+        #try and see if user already exists
         u1 = User.query.filter_by(username=uname).first()
         if u1:
             flash("Username already exists! Please login.")
             return redirect(url_for("auth.login"))
         
+        #if bank details are empty but the user wants to sign up as a seller, provide error
         if (bankdetails == '') and (register.seller.data == True):
             flash("To register as a seller, you must provide your bank details.")
             return redirect(url_for("auth.register"))
         
+        #hash the plaintext password
         pwd_hash = generate_password_hash(pwd)
+
+        #create new user object
         new_user = User(username=uname, password_hash=pwd_hash, email=email, phone=pnum, seller=status, bank_account=bankdetails)
+
+        #save to database
         db.session.add(new_user)
         db.session.commit()
 
@@ -68,5 +82,6 @@ def register():
 @bp.route("/logout")
 @login_required
 def logout():
+    #log out user and redirect
     logout_user()
     return redirect(url_for("main.index"))

@@ -101,8 +101,12 @@ def check_upload_file(fp, filename):
     return dp_upload_path
 
 @bp.route('/add', methods=['GET', 'POST'])
-@login_required #would be better to specify must logged in as a seller
+@login_required
 def add():
+    #check if user is a seller
+    if(not current_user.seller):
+        return redirect(url_for('auth.login'))
+
     form = AddProductForm()
 
     if(form.validate_on_submit()):
@@ -156,6 +160,7 @@ def add():
 
         return redirect(url_for('product.view', id=new_product.id))
 
+    # if validation fails, flash form errors
     else:
         for field, errors in form.errors.items():
             for error in errors:

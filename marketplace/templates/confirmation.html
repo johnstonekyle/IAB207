@@ -9,7 +9,8 @@
 
     <div class="col-md-6 ml-3 mt-4">
         
-        {% if heading|lower == 'your order' %}
+        <!-- allows the page to be used for different confirmation messages if need be -->
+        {% if heading|lower == 'your order' %} 
 
             <span class="font-weight-bold">Your Order ID:</span> {{ data.id }} <br><br>
             <span class="font-weight-bold">Sent To Address:</span> {{ data.address }} <br><br>

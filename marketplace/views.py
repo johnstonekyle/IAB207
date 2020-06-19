@@ -10,7 +10,6 @@ bp = Blueprint('main', __name__,)
 @bp.route('/', methods=['GET'])
 def index():
     product_list = Product.query.order_by(Product.created.desc()).all()
-    total_results = len(product_list)
 
     if (not product_list): #if no products exist then return 404
         return render_template('404.html')
@@ -35,7 +34,6 @@ def index():
 def index_category(category):
 
     product_list = Product.query.filter_by(category=category).order_by(Product.created.desc()).all()
-    total_results = len(product_list)
 
     if (not product_list): #if no products exist then return 404
         return render_template('404.html')

@@ -19,16 +19,16 @@
                     {% endif %}
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
+                    <div class="carousel-item active"> <!-- primary image -->
                         <img class="d-block w-100" src="..{{ product.image_one }}" alt="First slide">
                     </div>
                     {% if product.image_two %}
-                    <div class="carousel-item">
+                    <div class="carousel-item"> <!-- second image -->
                         <img class="d-block w-100" src="..{{ product.image_two }}" alt="Second slide">
                     </div>
                     {% endif %}
                     {% if product.image_three %}
-                    <div class="carousel-item">
+                    <div class="carousel-item"> <!-- third image -->
                         <img class="d-block w-100" src="..{{ product.image_three }}" alt="Third slide">
                     </div>
                     {% endif %}
@@ -151,12 +151,13 @@
         {% endif %}
     {% endwith %}
 
+    <!-- if there are no reviews then display a message -->
     {% if reviewCount == 0 %}
         <h3 class="text-center mt-5 text-muted"> No Reviews Available for this Product </h3>
     {% endif %}
 
     {% for comment in comments %}
-    <!-- review -->
+    <!-- reviews -->
     <div class="mt-4 mb-2 border p-4">
         <div class="row">
             <div class="col review-head">
